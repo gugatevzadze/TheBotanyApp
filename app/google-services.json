@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "890371353196",
+    "project_id": "thebotanyapp",
+    "storage_bucket": "thebotanyapp.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:890371353196:android:fba9a52a4cb73b2cddc649",
+        "android_client_info": {
+          "package_name": "com.example.thebotanyapp"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDMGJ6mK7mgfnQ1lMZcZeyQxMUQ1gGs0LE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

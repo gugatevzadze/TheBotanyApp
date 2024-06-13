@@ -1,0 +1,20 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base application theme. -->
+    <style name="Base.Theme.TheBotanyApp" parent="Theme.AppCompat.DayNight.NoActionBar">
+        <!-- Primary brand color. -->
+        <item name="colorPrimary">@color/primary_background</item>
+        <item name="colorPrimaryVariant">@color/primary_background_variant</item>
+        <item name="colorOnPrimary">@color/white</item>
+        <item name="colorSecondary">@color/secondary_background</item>
+        <item name="colorSecondaryVariant">@color/teal_700</item>
+        <item name="colorOnSecondary">@color/black</item>
+        <!-- Customize your theme here. -->
+    </style>
+    <style name="Theme.TheBotanyApp" parent="Base.Theme.TheBotanyApp" />
+
+    <style name="Theme.TheBotanyApp.SplashScreen" parent="Theme.SplashScreen">
+        <item name="windowSplashScreenBackground">@color/white</item>
+        <item name="windowSplashScreenAnimatedIcon">@drawable/ic_plant</item>
+        <item name="postSplashScreenTheme">@style/Theme.TheBotanyApp</item>
+    </style>
+</resources>

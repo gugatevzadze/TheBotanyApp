@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/primary_background"
+    android:padding="30dp"
+    tools:context=".presentation.screen.profile.ProfileFragment">
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/profilePic"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/ic_launcher_background"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        />
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/btnAdd"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="140dp"
+        android:layout_marginEnd="4dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/ic_circle"
+        app:layout_constraintEnd_toEndOf="@+id/profilePic"
+        app:layout_constraintTop_toTopOf="@+id/profilePic"
+        />
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/plus"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:src="@drawable/ic_plus"
+        app:layout_constraintTop_toTopOf="@id/btnAdd"
+        app:layout_constraintBottom_toBottomOf="@id/btnAdd"
+        app:layout_constraintStart_toStartOf="@id/btnAdd"
+        app:layout_constraintEnd_toEndOf="@id/btnAdd"/>
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tvEmail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:text="Email"
+        android:fontFamily="@font/poppins"
+        android:textSize="28sp"
+        app:layout_constraintTop_toBottomOf="@id/profilePic"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
