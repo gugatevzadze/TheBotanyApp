@@ -1,6 +1,7 @@
 package com.example.thebotanyapp.di
 
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
@@ -30,5 +31,11 @@ object FirebaseModule {
     @Singleton
     fun provideFirebaseFireStore(): FirebaseFirestore {
         return FirebaseFirestore.getInstance()
+    }
+
+    @Provides
+    @Singleton
+    fun provideFirebaseDatabase(): FirebaseDatabase{
+        return FirebaseDatabase.getInstance()
     }
 }

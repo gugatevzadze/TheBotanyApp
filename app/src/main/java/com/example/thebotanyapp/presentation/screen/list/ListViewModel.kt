@@ -1,8 +1,13 @@
 package com.example.thebotanyapp.presentation.screen.list
 
+import android.util.Log
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.thebotanyapp.data.common.Resource
+import com.example.thebotanyapp.domain.model.plant.Plant
+import com.example.thebotanyapp.domain.usecase.database.GetDatabaseUseCase
 import com.example.thebotanyapp.domain.usecase.plant.GetPlantListUseCase
 import com.example.thebotanyapp.presentation.event.list.ListEvent
 import com.example.thebotanyapp.presentation.mapper.plant.toPresentation
@@ -12,13 +17,16 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharedFlow
+import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.toList
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class ListViewModel @Inject constructor(
-    private val getPlantListUseCase: GetPlantListUseCase
+    private val getPlantListUseCase: GetPlantListUseCase,
+    private val getDatabaseUseCase: GetDatabaseUseCase
 ) : ViewModel() {
 
     private val _listState = MutableStateFlow(ListState())
@@ -37,35 +45,48 @@ class ListViewModel @Inject constructor(
 
     private fun getPlantList() {
         viewModelScope.launch {
-            getPlantListUseCase.invoke().collect { it ->
-                when (it) {
-                    is Resource.Success -> {
-                        _listState.update { currentState ->
-                            currentState.copy(
-                                plants = it.data.map { it.toPresentation() }
-                            )
-                        }
-                    }
-
-                    is Resource.Error -> {
-                        _listState.update { currentState ->
-                            currentState.copy(
-                                errorMessage = it.errorMessage
-                            )
-                        }
-                    }
-
-                    is Resource.Loading -> {
-                        _listState.update { currentState ->
-                            currentState.copy(
-                                isLoading = it.loading
-                            )
-                        }
-                    }
+            getDatabaseUseCase.invoke().collect { plants ->
+                _listState.update { currentState ->
+                    currentState.copy(
+                        plants = plants.map { it.toPresentation() },
+                        isLoading = false
+                    )
                 }
             }
         }
     }
+
+//    private fun getPlantList() {
+//        viewModelScope.launch {
+//            getPlantListUseCase.invoke().collect { it ->
+//                when (it) {
+//                    is Resource.Success -> {
+//                        _listState.update { currentState ->
+//                            currentState.copy(
+//                                plants = it.data.map { it.toPresentation() }
+//                            )
+//                        }
+//                    }
+//
+//                    is Resource.Error -> {
+//                        _listState.update { currentState ->
+//                            currentState.copy(
+//                                errorMessage = it.errorMessage
+//                            )
+//                        }
+//                    }
+//
+//                    is Resource.Loading -> {
+//                        _listState.update { currentState ->
+//                            currentState.copy(
+//                                isLoading = it.loading
+//                            )
+//                        }
+//                    }
+//                }
+//            }
+//        }
+//    }
 
     private fun onPlantItemClick(plant: PlantModel) {
         viewModelScope.launch {

@@ -1,5 +1,6 @@
 package com.example.thebotanyapp.presentation.screen.list
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
@@ -21,6 +22,7 @@ class ListRecyclerAdapter (
     }
 
     override fun onBindViewHolder(holder: UserListViewHolder, position: Int) {
+        Log.d("ListRecyclerAdapter", "Binding view holder at position $position")
         holder.bind()
     }
 
@@ -28,7 +30,9 @@ class ListRecyclerAdapter (
         RecyclerView.ViewHolder(binding.root) {
         private lateinit var plant: PlantModel
         fun bind() {
+            Log.d("ListRecyclerAdapter", "bind() called")
             plant = currentList[adapterPosition]
+            Log.d("ListRecyclerAdapter", "Binding plant: $plant")
             binding.apply {
                 tvName.text = plant.name
                 tvSpecies.text = plant.species

@@ -10,18 +10,21 @@ import com.example.thebotanyapp.data.remote.service.plant.PlantListApiService
 import com.example.thebotanyapp.data.repository.remote.auth.AuthRepositoryImpl
 import com.example.thebotanyapp.data.repository.remote.auth.CurrentSessionRepositoryImpl
 import com.example.thebotanyapp.data.repository.local.datastore.DataStoreRepositoryImpl
+import com.example.thebotanyapp.data.repository.remote.database.DatabaseRepositoryImpl
 import com.example.thebotanyapp.data.repository.remote.firestore.user.UserFavouritesRepositoryImpl
 import com.example.thebotanyapp.data.repository.remote.plant.PlantDetailsRepositoryImpl
 import com.example.thebotanyapp.data.repository.remote.plant.PlantListRepositoryImpl
 import com.example.thebotanyapp.data.repository.remote.storage.ProfilePicRepositoryImpl
 import com.example.thebotanyapp.domain.repository.auth.AuthRepository
 import com.example.thebotanyapp.domain.repository.auth.CurrentSessionRepository
+import com.example.thebotanyapp.domain.repository.database.DatabaseRepository
 import com.example.thebotanyapp.domain.repository.datastore.DataStoreRepository
 import com.example.thebotanyapp.domain.repository.firestore.user.UserFavouritesRepository
 import com.example.thebotanyapp.domain.repository.plant.PlantDetailsRepository
 import com.example.thebotanyapp.domain.repository.plant.PlantListRepository
 import com.example.thebotanyapp.domain.repository.storage.ProfilePicRepository
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.storage.StorageReference
 import dagger.Module
@@ -96,5 +99,13 @@ object RepositoryModule {
         @ApplicationContext context: Context
     ): ProfilePicRepository {
         return ProfilePicRepositoryImpl(storage = storage, context = context)
+    }
+
+    @Provides
+    @Singleton
+    fun provideDatabaseRepository(
+        db: FirebaseDatabase
+    ): DatabaseRepository {
+        return DatabaseRepositoryImpl(db = db)
     }
 }
