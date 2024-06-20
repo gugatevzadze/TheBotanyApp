@@ -16,6 +16,7 @@ class ListRecyclerAdapter (
     ListAdapter<PlantModel, ListRecyclerAdapter.UserListViewHolder>(UserListDiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): UserListViewHolder {
+        Log.d("ListRecyclerAdapter", "onCreateViewHolder() called")
         val binding =
             ListItemPlantBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return UserListViewHolder(binding)
@@ -47,13 +48,28 @@ class ListRecyclerAdapter (
             }
         }
     }
+    override fun getItemCount(): Int {
+        val itemCount = super.getItemCount()
+        Log.d("ListRecyclerAdapter", "getItemCount() returned: $itemCount")
+        return itemCount
+    }
+
     private class UserListDiffCallback : DiffUtil.ItemCallback<PlantModel>() {
         override fun areItemsTheSame(oldItem: PlantModel, newItem: PlantModel): Boolean {
-            return oldItem.id == newItem.id
+            val areItemsTheSame = oldItem.id == newItem.id
+            Log.d("ListRecyclerAdapter", "areItemsTheSame() returned: $areItemsTheSame for oldItem: $oldItem and newItem: $newItem")
+            return areItemsTheSame
         }
 
         override fun areContentsTheSame(oldItem: PlantModel, newItem: PlantModel): Boolean {
-            return oldItem == newItem
+            val areContentsTheSame = oldItem == newItem
+            Log.d("ListRecyclerAdapter", "areContentsTheSame() returned: $areContentsTheSame for oldItem: $oldItem and newItem: $newItem")
+            return areContentsTheSame
         }
+    }
+
+    override fun submitList(list: List<PlantModel>?) {
+        Log.d("ListRecyclerAdapter", "submitList() called with list: $list")
+        super.submitList(list)
     }
 }

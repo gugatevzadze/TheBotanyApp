@@ -45,13 +45,26 @@ class ListViewModel @Inject constructor(
 
     private fun getPlantList() {
         viewModelScope.launch {
-            getDatabaseUseCase.invoke().collect { plants ->
-                _listState.update { currentState ->
-                    currentState.copy(
-                        plants = plants.map { it.toPresentation() },
-                        isLoading = false
-                    )
+            getDatabaseUseCase.invoke().collect { resource ->
+                when (resource) {
+                    is Resource.Success -> {
+                        val plants = resource.data.map { it.toPresentation() }
+                        _listState.update { currentState ->
+                            currentState.copy(plants = plants)
+                        }
+                    }
+                    is Resource.Error -> {
+                        _listState.update { currentState ->
+                            currentState.copy(
+                                errorMessage = resource.errorMessage
+                            )
+                        }
+                    }
+                    is Resource.Loading -> {
+                        //
+                    }
                 }
+                Log.d("ListViewModel", "Current state: ${_listState.value}")
             }
         }
     }

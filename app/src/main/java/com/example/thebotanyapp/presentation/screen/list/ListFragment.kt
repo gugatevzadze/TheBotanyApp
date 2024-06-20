@@ -53,6 +53,16 @@ class ListFragment : BaseFragment<FragmentListBinding>(FragmentListBinding::infl
         viewModel.onEvent(ListEvent.GetPlantList)
     }
 
+    private fun observeListState() {
+        viewLifecycleOwner.lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.listState.collect {
+                    handleListState(state = it)
+                }
+            }
+        }
+    }
+
     private fun observeNavigationEvents() {
         viewLifecycleOwner.lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
@@ -88,23 +98,13 @@ class ListFragment : BaseFragment<FragmentListBinding>(FragmentListBinding::infl
         binding.progressBar.isVisible = state.isLoading
     }
 
-    private fun observeListState() {
-        viewLifecycleOwner.lifecycleScope.launch {
-            repeatOnLifecycle(Lifecycle.State.STARTED) {
-                viewModel.listState.collect {
-                    handleListState(state = it)
-                }
-            }
+    private fun searchListener() {
+        binding.etSearch.addTextChangedListener {
+            handleSearch(it.toString())
         }
     }
 
     private fun handleSearch(query: String) {
         viewModel.onEvent(ListEvent.PlantSearch(query = query))
-    }
-
-    private fun searchListener() {
-        binding.etSearch.addTextChangedListener {
-            handleSearch(it.toString())
-        }
     }
 }

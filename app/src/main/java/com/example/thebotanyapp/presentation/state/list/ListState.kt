@@ -4,7 +4,6 @@ import com.example.thebotanyapp.presentation.model.plant.PlantModel
 
 
 data class ListState(
-    val user: String? = null,
     val plants: List<PlantModel>? = null,
     val originalPlants: List<PlantModel>? = null,
     val errorMessage: String? = null,
